@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import Swal from 'sweetalert2';
 import { BookText, PlusCircle } from 'lucide-react';
 
 interface Blog {
@@ -51,24 +52,42 @@ export default function ManageBlogsPage() {
   }, []);
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this blog?')) return;
+  const result = await Swal.fire({
+    title: 'Are you sure?',
+    text: 'This blog will be permanently deleted!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'Cancel',
+    background: '#1e1e1e',
+    color: '#f5f5f5',
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    customClass: {
+      popup: 'rounded-xl',
+      confirmButton: 'px-4 py-2 rounded-lg font-semibold',
+      cancelButton: 'px-4 py-2 rounded-lg font-semibold',
+    },
+  });
+
+  if (!result.isConfirmed) return;
+
+  const toastId = toast.loading('Deleting blog...');
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    if (!res.ok) throw new Error('Failed to delete');
     
-    const toastId = toast.loading('Deleting blog...');
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-      if (!res.ok) throw new Error('Failed to delete');
-      
-      toast.success('Blog deleted successfully', { id: toastId });
-      setBlogs(currentBlogs => currentBlogs.filter(blog => blog._id !== id));
-    } catch (error) {
-      toast.error('Could not delete the blog.', { id: toastId });
-    }
-  };
+    toast.success('Blog deleted successfully', { id: toastId });
+    setBlogs(currentBlogs => currentBlogs.filter(blog => blog._id !== id));
+  } catch (error) {
+    toast.error('Could not delete the blog.', { id: toastId });
+  }
+};
 
   return (
     <div>

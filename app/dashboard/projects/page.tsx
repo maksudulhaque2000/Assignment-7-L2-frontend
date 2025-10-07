@@ -5,6 +5,7 @@ import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { Project } from '@/types';
 import { LayoutGrid, PlusCircle } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 function ItemSkeleton() {
   return (
@@ -43,8 +44,26 @@ export default function ManageProjectsPage() {
   }, []);
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this project?')) return;
-    
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'This project will be permanently deleted!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+      background: '#1e1e1e',
+      color: '#f5f5f5',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      customClass: {
+        popup: 'rounded-xl',
+        confirmButton: 'px-4 py-2 rounded-lg font-semibold',
+        cancelButton: 'px-4 py-2 rounded-lg font-semibold',
+      },
+    });
+
+    if (!result.isConfirmed) return;
+
     const toastId = toast.loading('Deleting project...');
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/projects/${id}`, {

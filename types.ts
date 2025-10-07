@@ -10,6 +10,7 @@ export interface Project {
   githubUrl: string;
   technologies: string[];
   category: 'frontend' | 'backend' | 'fullstack' | 'mobile';
+  featured?: boolean;
 }
 
 export interface Blog {

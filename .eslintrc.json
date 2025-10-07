@@ -1,0 +1,5 @@
+{
+  "extends": "next/core-web-vitals"
+}
+// npm run lint
+// npm run lint:fix

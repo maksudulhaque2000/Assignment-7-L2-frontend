@@ -6,6 +6,7 @@ import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { Home, Newspaper, LayoutGrid, LogOut, BarChart } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { FullPageLoader } from '@/components/ui/FullPageLoader';
 
 export default function DashboardLayout({
   children,
@@ -15,6 +16,7 @@ export default function DashboardLayout({
   const router = useRouter();
   const pathname = usePathname();
   const [isClient, setIsClient] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -22,6 +24,8 @@ export default function DashboardLayout({
     if (!token) {
       router.replace('/login');
       toast.error('You must be logged in to view this page.');
+    } else {
+      setIsAuthenticated(true);
     }
   }, [router]);
   
@@ -31,12 +35,9 @@ export default function DashboardLayout({
     router.push('/login');
   };
 
-  if (!isClient) {
-    return (
-        <div className="flex h-screen items-center justify-center">
-            <p>Loading...</p>
-        </div>
-    );
+
+  if (!isClient || !isAuthenticated) {
+    return <FullPageLoader />;
   }
 
   const navLinks = [

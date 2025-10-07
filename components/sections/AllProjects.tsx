@@ -1,4 +1,3 @@
-// components/sections/AllProjects.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -22,12 +21,10 @@ export default function AllProjects({ projects }: { projects: Project[] }) {
   const [currentCategory, setCurrentCategory] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
 
-  // ক্যাটাগরি বা সার্চ টার্ম পরিবর্তন হলে প্রথম পেজে ফিরে যাবে
   useEffect(() => {
     setCurrentPage(1);
   }, [currentCategory, searchTerm]);
 
-  // ফিল্টারিং লজিক (ক্যাটাগরি এবং সার্চ একসাথে)
   const filteredProjects = projects
     .filter(project => 
       currentCategory === 'all' || project.category === currentCategory
@@ -36,7 +33,6 @@ export default function AllProjects({ projects }: { projects: Project[] }) {
       project.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-  // পেজিনেশন লজিক
   const indexOfLastProject = currentPage * PROJECTS_PER_PAGE;
   const indexOfFirstProject = indexOfLastProject - PROJECTS_PER_PAGE;
   const currentProjectsToDisplay = filteredProjects.slice(indexOfFirstProject, indexOfLastProject);
@@ -53,7 +49,6 @@ export default function AllProjects({ projects }: { projects: Project[] }) {
     <div className="w-full">
       <Tabs defaultValue="all" onValueChange={(value) => setCurrentCategory(value)} className="w-full">
         <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mb-12">
-          {/* ক্যাটাগরি ট্যাব */}
           <TabsList className="grid grid-cols-4 w-full max-w-md">
             {categories.map((cat) => (
               <TabsTrigger key={cat.value} value={cat.value}>
@@ -61,7 +56,6 @@ export default function AllProjects({ projects }: { projects: Project[] }) {
               </TabsTrigger>
             ))}
           </TabsList>
-          {/* সার্চ ইনপুট */}
           <div className="w-full max-w-xs">
             <Input
               type="text"
@@ -89,7 +83,6 @@ export default function AllProjects({ projects }: { projects: Project[] }) {
             <p className="text-center py-8 text-muted-foreground">No projects found matching your criteria.</p>
           )}
 
-          {/* পেজিনেশন কন্ট্রোল */}
           {totalPages > 1 && (
             <div className="mt-16 flex justify-center items-center space-x-1 sm:space-x-2">
               <Button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} variant="outline" size="sm">

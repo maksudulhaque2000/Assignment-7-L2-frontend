@@ -1,4 +1,3 @@
-// app/dashboard/projects/create/page.tsx
 'use client';
 import ProjectForm from '../ProjectForm';
 

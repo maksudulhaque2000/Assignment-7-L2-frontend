@@ -28,7 +28,6 @@ export default async function BlogsPage() {
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {blogs.map((blog) => (
           <Link href={`/blogs/${blog._id}`} key={blog._id} className="border rounded-lg p-6 hover:shadow-lg transition-shadow">
-            {/* Optional: <img src={blog.imageUrl} alt={blog.title} /> */}
             <h2 className="text-2xl font-bold mb-2">{blog.title}</h2>
             <p className="text-muted-foreground line-clamp-3">
               {blog.content.replace(/<[^>]*>?/gm, '').substring(0, 150)}...

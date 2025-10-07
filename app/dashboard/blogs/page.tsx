@@ -37,7 +37,7 @@ export default function ManageBlogsPage() {
       if (!res.ok) throw new Error('Failed to delete');
       
       toast.success('Blog deleted successfully', { id: toastId });
-      fetchBlogs(); // Refresh the list
+      fetchBlogs();
     } catch (error) {
       toast.error('Could not delete the blog.', { id: toastId });
     }

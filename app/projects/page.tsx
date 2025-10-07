@@ -1,4 +1,3 @@
-// app/projects/page.tsx
 import { Metadata } from 'next';
 import { SectionTitle } from '@/components/ui/section-title';
 import { Project } from '@/types';
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 async function getProjects(): Promise<Project[]> {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/projects`, {
-      next: { revalidate: 3600 }, // প্রতি 1 ঘণ্টা পর ডেটা রিভ্যালিডেট হবে
+      next: { revalidate: 3600 },
     });
     if (!res.ok) return [];
     return res.json();

@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
-import { Home } from 'lucide-react';
+import { Home, Newspaper, LayoutGrid, LogOut, BarChart } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export default function DashboardLayout({
   children,
@@ -12,6 +13,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -30,29 +32,61 @@ export default function DashboardLayout({
   };
 
   if (!isClient) {
-    return null;
+    return (
+        <div className="flex h-screen items-center justify-center">
+            <p>Loading...</p>
+        </div>
+    );
   }
 
+  const navLinks = [
+    { href: '/dashboard', label: 'Overview', icon: BarChart },
+    { href: '/dashboard/blogs', label: 'Manage Blogs', icon: Newspaper },
+    { href: '/dashboard/projects', label: 'Manage Projects', icon: LayoutGrid },
+  ];
+
   return (
-    <div className="flex">
-      <aside className="w-64 min-h-screen bg-secondary p-4">
-        <h2 className="font-bold text-xl mb-6">Dashboard</h2>
-        <nav className="flex flex-col gap-4">
-          <Link href="/dashboard">Overview</Link>
-          <Link href="/dashboard/blogs">Manage Blogs</Link>
-          <Link href="/dashboard/projects">Manage Projects</Link>
-          <button onClick={handleLogout} className="text-left mt-auto text-red-500">Logout</button>
-        </nav>
+    <div className="flex min-h-screen">
+      <aside className="w-64 bg-secondary p-4 flex flex-col justify-between">
+        <div>
+          <div className="mb-8">
+            <h2 className="font-bold text-2xl text-center">Dashboard</h2>
+          </div>
+          <nav className="flex flex-col gap-2">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className={cn(
+                    "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
+                    isActive && "bg-primary text-primary-foreground"
+                  )}
+                >
+                  <link.icon className="h-4 w-4" />
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
 
-        <hr className="my-4" />
-        <Link href="/" className="flex items-center gap-2 p-2 rounded hover:bg-primary/10">
-            <Home className="h-4 w-4" />
-            Back to Home
-          </Link>
-
-        <hr className="my-4" />
+        <div className="flex flex-col gap-2">
+            <Link href="/" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary border">
+                <Home className="h-4 w-4" />
+                Back to Home
+            </Link>
+            <button 
+              onClick={handleLogout} 
+              className="flex items-center gap-3 rounded-lg px-3 py-2 text-red-500 transition-all hover:bg-red-500/10"
+            >
+              <LogOut className="h-4 w-4" />
+              Logout
+            </button>
+        </div>
       </aside>
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-6 sm:p-8">
         {children}
       </main>
     </div>

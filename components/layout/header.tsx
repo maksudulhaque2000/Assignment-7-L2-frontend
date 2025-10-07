@@ -75,7 +75,7 @@ export default function Header() {
     <header className={cn('fixed top-0 z-50 w-full transition-all duration-300', scrolled ? 'bg-background/80 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-6')}>
       <div className="container mx-auto px-4 md:px-6 max-w-[1400px] flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold tracking-tight hover:text-primary/90 transition-colors">
-          Haque's<span className="text-primary">Portfolio</span>
+          Haque&apos;s<span className="text-primary">Portfolio</span>
         </Link>
         
         {!isLoginPage && (

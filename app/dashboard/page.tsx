@@ -6,7 +6,7 @@ export default function DashboardPage() {
     <div>
       <h1 className="text-3xl font-bold">👋 Welcome to your Dashboard</h1>
       <p className="mt-2 text-muted-foreground">
-        This is your central hub for managing your portfolio's content. Select a quick action below or use the sidebar to get started.
+        This is your central hub for managing your portfolio&apos;s content. Select a quick action below or use the sidebar to get started.
       </p>
 
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -1,5 +1,9 @@
 # 🚀 Haque's Portfolio - A Full-Stack Developer Showcase (Frontend)
 
+<div align="center">
+  <img src="./public/preview.png" height="400" width="800" alt="Haque's Portfolio Cover"/>
+</div>
+
 <p align="center">
   This repository contains the frontend source code for my personal portfolio, a dynamic and feature-rich application built with Next.js and TypeScript. It showcases my skills, projects, and thoughts through a modern, responsive interface.
 </p>
@@ -7,6 +11,12 @@
 <p align="center">
   <a href="https://portfolio-frontend-nu-six.vercel.app" target="_blank">
     <strong>🌐 View Live Demo</strong>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://drive.google.com/file/d/1fwL1vwCjXs27QY8oTPCHHUdOKf4IPShe/view?usp=sharing">
+    <strong>🎬 Video Explanation Link</strong>
   </a>
 </p>
 
@@ -61,6 +71,7 @@ A secret token to secure the on-demand revalidation API route.
 This must be identical to the token in the backend's `.env` file.
 ```
 REVALIDATION_TOKEN="your_super_secret_token"
+NEXT_PUBLIC_BACKEND_URL="your_backend_URL/api"
 ```
 
 ---
@@ -69,7 +80,7 @@ REVALIDATION_TOKEN="your_super_secret_token"
 
 1.  **Clone the repository:**
     ```bash
-    git clone [YOUR_FRONTEND_REPO_URL](https://github.com/maksudulhaque2000/Assignment-7-L2-frontend)
+    git clone (https://github.com/maksudulhaque2000/Assignment-7-L2-frontend)
     cd portfolio-frontend
     ```
 
@@ -87,3 +98,88 @@ REVALIDATION_TOKEN="your_super_secret_token"
     ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+
+---
+
+## 📂 Project Structure
+
+portfolio-frontend/
+├── 📁 app/
+│   ├── 📁 (auth)/                 # Route Group for authentication pages
+│   │   ├── layout.tsx             # Layout specific to auth pages (e.g., for metadata)
+│   │   └── 📁 login/
+│   │       └── page.tsx           # Admin login page UI and logic
+│   ├── 📁 api/
+│   │   └── 📁 revalidate/
+│   │       └── route.ts           # Serverless function for On-Demand Revalidation (ISR)
+│   ├── 📁 blogs/
+│   │   ├── 📁 [id]/
+│   │   │   └── page.tsx           # Dynamic page for displaying a single blog post
+│   │   └── page.tsx               # Public page for listing all blog posts
+│   ├── 📁 dashboard/
+│   │   ├── 📁 blogs/               # Pages for CRUD operations on blogs
+│   │   ├── 📁 projects/            # Pages for CRUD operations on projects
+│   │   ├── layout.tsx             # Secure layout for the entire dashboard
+│   │   └── page.tsx               # Dashboard overview/welcome page
+│   ├── 📁 projects/
+│   │   └── page.tsx               # Public page for listing all projects with search & filter
+│   ├── layout.tsx                 # 🌳 Root layout for the entire application
+│   └── page.tsx                   # 🏠 Homepage of the portfolio
+├── 📁 components/
+│   ├── 📁 layout/                # Main layout components (Header, Footer)
+│   ├── 📁 sections/              # Components for different sections of the homepage (Hero, About, Resume)
+│   └── 📁 ui/                    # Reusable, low-level UI elements (Button, Card, AlertDialog, etc.)
+├── 📁 context/
+│   └── TabContext.tsx             # React Context to manage shared state (e.g., active resume tab)
+├── 📁 data/
+│   ├── education.ts               # Static data for the education timeline
+│   └── experience.ts              # Static data for the work experience timeline
+├── 📁 lib/
+│   └── utils.ts                   # Utility functions (e.g., `cn` for Tailwind classnames)
+├── 📁 public/
+│   └── ...                        # Static assets (images, fonts, resume PDF)
+├── types.ts                       #  TypeScript type definitions (Project, Blog, etc.)
+└── ...                         
+
+---
+
+## 🚢 Deployment
+
+This project supports static exports, so it can be easily deployed to any static hosting platform (e.g., Vercel, Netlify, GitHub Pages):
+
+1.  **Build the project:**
+    ```bash
+    npm run build
+    ```
+    After the build is complete, static files will be generated in the `out` folder (if `output: 'export'` is set in `next.config.js`). Alternatively, the default Next.js build output (the `.next` folder) will be automatically deployed on platforms like Vercel.
+
+---
+
+## ⚡ Performance
+
+Emphasis has been placed on the following to ensure optimal performance of the portfolio:
+
+* **Optimized Images**: Image optimization using Next.js's `<Image>` component.
+* **Lazy Loading**: Components and images are loaded as needed.
+* **Efficient Animations**: Hardware-accelerated animations from Framer Motion.
+* **Minimal Bundle Size**: Fast loading by excluding unnecessary code.
+
+---
+
+## 📬 Let's Connect
+
+If you like my work or want to discuss a project, feel free to contact me:
+
+* **Email**: [smmaksudulhaque2000@gmail.com](mailto:smmaksudulhaque2000@gmail.com)
+* **LinkedIn**: [linkedin.com/in/maksudulhaque2000](https://www.linkedin.com/in/maksudulhaque2000/)
+* **GitHub**: [github.com/maksudulhaque2000](https://github.com/maksudulhaque2000)
+* **Facebook**: [facebook.com/maksudulhaque2000](https://www.facebook.com/maksudulhaque2000)
+* **YouTube**: [youtube.com/@maksudulhaque2000](https://www.youtube.com/@maksudulhaque2000)
+
+---
+
+## 📜 License
+
+This project is licensed under the [MAKSUDUL HAQUE](HAQUE). Feel free to use this project to create your own portfolio!
+
+---

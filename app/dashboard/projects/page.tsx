@@ -76,9 +76,8 @@ export default function ManageProjectsPage() {
       
       toast.success('Project deleted successfully', { id: toastId });
       setProjects(currentProjects => currentProjects.filter(p => p._id !== id));
-      await fetch(`/api/revalidate?path=/&token=${process.env.NEXT_PUBLIC_REVALIDATION_TOKEN}`);
-      await fetch(`/api/revalidate?path=/projects&token=${process.env.NEXT_PUBLIC_REVALIDATION_TOKEN}`);
-      console.log("Revalidation triggered for projects.");
+      await fetch(`/api`);
+      await fetch(`/api/projects`);
     } catch (error) {
       toast.error('Could not delete the project.', { id: toastId });
     }

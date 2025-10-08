@@ -49,9 +49,8 @@ export default function ProjectForm({ existingProject }: { existingProject?: Pro
       if (!res.ok) throw new Error('Operation failed');
 
       toast.success(existingProject ? 'Project updated!' : 'Project created!', { id: toastId });
-      await fetch(`/api/revalidate?path=/&token=${process.env.NEXT_PUBLIC_REVALIDATION_TOKEN}`);
-      await fetch(`/api/revalidate?path=/projects&token=${process.env.NEXT_PUBLIC_REVALIDATION_TOKEN}`);
-      console.log("Revalidation triggered for projects.");
+      await fetch(`/api`);
+      await fetch(`/api/projects`);
       router.push('/dashboard/projects');
       router.refresh();
     } catch (error) {

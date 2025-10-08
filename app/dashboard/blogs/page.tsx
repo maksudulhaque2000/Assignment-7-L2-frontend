@@ -74,9 +74,7 @@ export default function ManageBlogsPage() {
         toast.success('Blog deleted successfully', { id: toastId });
         setBlogs(currentBlogs => currentBlogs.filter(blog => blog._id !== id));
 
-        // --- পরিবর্তন এখানে: Revalidation সিগন্যাল পাঠানো হচ্ছে ---
-        await fetch(`/api/revalidate?path=/blogs&token=${process.env.NEXT_PUBLIC_REVALIDATION_TOKEN}`);
-        console.log("Revalidation triggered for /blogs");
+        await fetch(`/api/blogs`);
 
     } catch (error) {
         toast.error('Could not delete the blog.', { id: toastId });

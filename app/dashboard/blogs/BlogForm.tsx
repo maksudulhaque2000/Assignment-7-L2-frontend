@@ -44,15 +44,13 @@ export default function BlogForm({ existingBlog }: { existingBlog?: Blog }) {
 
       toast.success(existingBlog ? 'Post updated!' : 'Post created!', { id: toastId });
       
-      // --- পরিবর্তন এখানে: Revalidation সিগন্যাল পাঠানো হচ্ছে ---
-      await fetch(`/api/revalidate?path=/blogs&token=${process.env.NEXT_PUBLIC_REVALIDATION_TOKEN}`);
+      await fetch(`/api/blogs`);
       if (existingBlog) {
-        await fetch(`/api/revalidate?path=/blogs/${existingBlog._id}&token=${process.env.NEXT_PUBLIC_REVALIDATION_TOKEN}`);
+        await fetch(`/api/blogs/${existingBlog._id}`);
       }
-      console.log("Revalidation triggered for blogs.");
       
       router.push('/dashboard/blogs');
-      router.refresh(); // ড্যাশবোর্ড পেজ রিফ্রেশ করার জন্য
+      router.refresh();
     } catch (error) {
       toast.error('Something went wrong.', { id: toastId });
     }

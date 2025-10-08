@@ -58,7 +58,16 @@ export default function ManageBlogsPage() {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Yes, delete it!',
-        // ... আপনার sweetalert2 স্টাইল
+        cancelButtonText: 'Cancel',
+      background: '#1e1e1e',
+      color: '#f5f5f5',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      customClass: {
+        popup: 'rounded-xl',
+        confirmButton: 'px-4 py-2 rounded-lg font-semibold',
+        cancelButton: 'px-4 py-2 rounded-lg font-semibold',
+      },
     });
 
     if (!result.isConfirmed) return;

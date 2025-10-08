@@ -11,9 +11,7 @@ export const metadata: Metadata = {
 
 async function BlogList() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs`, {
-      next: { revalidate: 600 },
-    });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs`);
 
     if (!res.ok) {
       return <p className="col-span-3 text-center text-red-500">Failed to load blogs.</p>;

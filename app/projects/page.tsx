@@ -12,9 +12,7 @@ export const metadata: Metadata = {
 
 async function ProjectDataFetcher() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/projects`, {
-      next: { revalidate: 3600 },
-    });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/projects`);
     if (!res.ok) return <p className="text-center text-red-500">Failed to fetch projects.</p>;
     
     const projects: Project[] = await res.json();

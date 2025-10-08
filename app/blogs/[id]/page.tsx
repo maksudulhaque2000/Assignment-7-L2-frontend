@@ -39,9 +39,7 @@ export async function generateStaticParams() {
 
 async function getBlog(id: string): Promise<Blog | null> {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${id}`, {
-      next: { revalidate: 600 },
-    });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${id}`);
     if (!res.ok) return null;
     return res.json();
   } catch (error) {

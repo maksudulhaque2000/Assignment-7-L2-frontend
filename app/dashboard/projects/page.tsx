@@ -28,7 +28,9 @@ export default function ManageProjectsPage() {
 
   const fetchProjects = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/projects`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/projects`, {
+      next: { revalidate: 10 },
+    });
       if (!res.ok) throw new Error("Failed to fetch projects");
       const data = await res.json();
       setProjects(data);

@@ -12,11 +12,11 @@ import { ThemeToggle } from '@/components/ui/theme-toggle';
 const navItems = [
   { name: 'About', href: '#about' },
   { name: 'Skills', href: '#skills' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Blogs', href: '/blogs' },
   { name: 'Experience', href: '#resume', tab: 'experience' },
   { name: 'Education', href: '#resume', tab: 'education' },
   { name: 'Contact', href: '#contact' },
+  { name: 'Projects', href: '/projects' },
+  { name: 'Blogs', href: '/blogs' },
 ];
 
 export default function Header() {

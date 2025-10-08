@@ -4,7 +4,9 @@ import { Blog } from '@/types';
 
 export async function generateStaticParams() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs`, {
+      next: { revalidate: 10 },
+    });
     
 
     if (!res.ok) {

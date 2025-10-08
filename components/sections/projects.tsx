@@ -10,7 +10,9 @@ export const metadata: Metadata = {
 
 async function getProjects(): Promise<Project[]> {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/projects`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/projects`, {
+      next: { revalidate: 10 },
+    });
 
     if (!res.ok) {
       console.error("Failed to fetch projects");

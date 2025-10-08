@@ -33,7 +33,9 @@ export default function ManageBlogsPage() {
 
   const fetchBlogs = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs`, {
+      next: { revalidate: 10 },
+    });
       if (!res.ok) {
         toast.error('Failed to fetch blogs.');
         return;
@@ -83,7 +85,9 @@ export default function ManageBlogsPage() {
         toast.success('Blog deleted successfully', { id: toastId });
         setBlogs(currentBlogs => currentBlogs.filter(blog => blog._id !== id));
 
-        await fetch(`/api/blogs`);
+        await fetch(`/api/blogs`, {
+      next: { revalidate: 10 },
+    });
 
     } catch (error) {
         toast.error('Could not delete the blog.', { id: toastId });

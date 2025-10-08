@@ -101,7 +101,21 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the r
 
 ---
 
+## 🔑 Admin Credentials for Testing
+
+To access the private dashboard for managing blogs and projects, please use the following credentials on the login page.
+
+| Role  | Email                 | Password      |
+| :---- | :-------------------- | :------------ |
+| Admin | `admin@example.com`   | `password123` |
+
+**Login Page URL:** `[YOUR_LIVE_DEMO_URL]/login`
+
+---
+
 ## 📂 Project Structure
+
+- The frontend is built with Next.js using the App Router, promoting a clean, modular, and scalable architecture.
 
 portfolio-frontend/
 ├── 📁 app/
@@ -139,7 +153,7 @@ portfolio-frontend/
 ├── 📁 public/
 │   └── ...                        # Static assets (images, fonts, resume PDF)
 ├── types.ts                       #  TypeScript type definitions (Project, Blog, etc.)
-└── ...                         
+└── ...                            # Root configuration files (.env.local, next.config.js, etc.)                     
 
 ---
 

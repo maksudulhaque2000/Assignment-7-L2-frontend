@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="[FRONTEND_LIVE_URL]" target="_blank">
+  <a href="https://portfolio-frontend-nu-six.vercel.app" target="_blank">
     <strong>🌐 View Live Demo</strong>
   </a>
 </p>

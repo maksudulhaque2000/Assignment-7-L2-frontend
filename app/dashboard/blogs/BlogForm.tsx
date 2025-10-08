@@ -43,8 +43,16 @@ export default function BlogForm({ existingBlog }: { existingBlog?: Blog }) {
       if (!res.ok) throw new Error('Operation failed');
 
       toast.success(existingBlog ? 'Post updated!' : 'Post created!', { id: toastId });
+      
+      // --- পরিবর্তন এখানে: Revalidation সিগন্যাল পাঠানো হচ্ছে ---
+      await fetch(`/api/revalidate?path=/blogs&token=${process.env.NEXT_PUBLIC_REVALIDATION_TOKEN}`);
+      if (existingBlog) {
+        await fetch(`/api/revalidate?path=/blogs/${existingBlog._id}&token=${process.env.NEXT_PUBLIC_REVALIDATION_TOKEN}`);
+      }
+      console.log("Revalidation triggered for blogs.");
+      
       router.push('/dashboard/blogs');
-      router.refresh();
+      router.refresh(); // ড্যাশবোর্ড পেজ রিফ্রেশ করার জন্য
     } catch (error) {
       toast.error('Something went wrong.', { id: toastId });
     }
@@ -54,23 +62,11 @@ export default function BlogForm({ existingBlog }: { existingBlog?: Blog }) {
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
         <label htmlFor="title">Title</label>
-        <input
-          id="title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full p-2 border rounded mt-1"
-          required
-        />
+        <input id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-2 border rounded mt-1" required />
       </div>
       <div>
         <label htmlFor="content">Content</label>
-        <ReactQuill 
-          theme="snow" 
-          value={content} 
-          onChange={setContent} 
-          className="bg-background mt-1"
-        />
+        <ReactQuill theme="snow" value={content} onChange={setContent} className="bg-background mt-1" />
       </div>
       <button type="submit" className="bg-primary text-primary-foreground p-2 rounded mt-8">
         {existingBlog ? 'Update Post' : 'Create Post'}

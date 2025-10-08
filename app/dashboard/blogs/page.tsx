@@ -52,42 +52,36 @@ export default function ManageBlogsPage() {
   }, []);
 
   const handleDelete = async (id: string) => {
-  const result = await Swal.fire({
-    title: 'Are you sure?',
-    text: 'This blog will be permanently deleted!',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
-    cancelButtonText: 'Cancel',
-    background: '#1e1e1e',
-    color: '#f5f5f5',
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    customClass: {
-      popup: 'rounded-xl',
-      confirmButton: 'px-4 py-2 rounded-lg font-semibold',
-      cancelButton: 'px-4 py-2 rounded-lg font-semibold',
-    },
-  });
-
-  if (!result.isConfirmed) return;
-
-  const toastId = toast.loading('Deleting blog...');
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      },
+    const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        // ... আপনার sweetalert2 স্টাইল
     });
-    if (!res.ok) throw new Error('Failed to delete');
-    
-    toast.success('Blog deleted successfully', { id: toastId });
-    setBlogs(currentBlogs => currentBlogs.filter(blog => blog._id !== id));
-  } catch (error) {
-    toast.error('Could not delete the blog.', { id: toastId });
-  }
-};
+
+    if (!result.isConfirmed) return;
+
+    const toastId = toast.loading('Deleting blog...');
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+        });
+        if (!res.ok) throw new Error('Failed to delete');
+        
+        toast.success('Blog deleted successfully', { id: toastId });
+        setBlogs(currentBlogs => currentBlogs.filter(blog => blog._id !== id));
+
+        // --- পরিবর্তন এখানে: Revalidation সিগন্যাল পাঠানো হচ্ছে ---
+        await fetch(`/api/revalidate?path=/blogs&token=${process.env.NEXT_PUBLIC_REVALIDATION_TOKEN}`);
+        console.log("Revalidation triggered for /blogs");
+
+    } catch (error) {
+        toast.error('Could not delete the blog.', { id: toastId });
+    }
+  };
 
   return (
     <div>
@@ -101,14 +95,9 @@ export default function ManageBlogsPage() {
           Create New Blog
         </Link>
       </div>
-
       <div className="space-y-4">
         {loading ? (
-          <>
-            <ItemSkeleton />
-            <ItemSkeleton />
-            <ItemSkeleton />
-          </>
+          <><ItemSkeleton /><ItemSkeleton /><ItemSkeleton /></>
         ) : blogs.length > 0 ? (
           blogs.map((blog) => (
             <div key={blog._id} className="p-4 border rounded flex justify-between items-center transition-all hover:shadow-md">

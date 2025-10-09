@@ -46,19 +46,33 @@ export function ProjectCard({ project, index, inView }: ProjectCardProps) {
       </div>
       
       <div className="flex flex-col flex-grow p-5 md:p-6 space-y-4">
-        <h3 className="text-xl font-bold">{title}</h3>
+        <h3 className="text-xl font-bold h-[3rem] flex items-center overflow-hidden">
+          {title}
+        </h3>
         
-        <p className="text-muted-foreground flex-grow">
-          {description}
-        </p>
-        
-        <div className="flex flex-wrap gap-2 pt-2">
+        <div className="text-muted-foreground flex-grow h-[6rem] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none]">
+          <p className="leading-relaxed">
+            {description}
+          </p>
+        </div>
+        <style jsx>{`
+          div::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
+
+        <div className="flex flex-wrap gap-2 pt-2 h-[4.5rem] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none]">
           {technologies.map((tech) => (
             <Badge key={tech} variant="outline" className="bg-secondary/50">
               {tech}
             </Badge>
           ))}
         </div>
+        <style jsx>{`
+          div::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
         
         <div className="flex gap-3 pt-4 mt-auto">
           <Button asChild variant="outline" size="sm" className="gap-1">

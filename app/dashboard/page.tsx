@@ -10,7 +10,6 @@ export default function DashboardPage() {
       </p>
 
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Manage Blogs Card */}
         <Link 
           href="/dashboard/blogs" 
           className="p-6 border rounded-lg hover:shadow-lg hover:border-primary transition-all flex items-start gap-4"
